@@ -18,6 +18,7 @@ kotlin-test-junit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version
 kotlin-test-js = { module = "org.jetbrains.kotlin:kotlin-test-js", version.ref = "kotlin" }
 
 ktgbotapi-core = { module = "dev.inmo:tgbotapi.core", version.ref = "ktgbotapi" }
+ktgbotapi-webapps = { module = "dev.inmo:tgbotapi.webapps", version.ref = "ktgbotapi" }
 
 microutils-koin = { module = "dev.inmo:micro_utils.koin", version.ref = "microutils" }
 microutils-serialization-mapper = { module = "dev.inmo:micro_utils.serialization.mapper", version.ref = "microutils" }

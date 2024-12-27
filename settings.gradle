@@ -4,7 +4,7 @@ String[] includes = [
     ":core",
     ":koin",
     ":server",
-    ":webapp",
+    ":client",
 ]
 
 

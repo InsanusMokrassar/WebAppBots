@@ -3,15 +3,15 @@ plugins {
     id "org.jetbrains.kotlin.plugin.serialization"
 }
 
-apply from: "$mppJavaProject"
+apply from: "$mppJsProject"
 
 kotlin {
     sourceSets {
         commonMain {
             dependencies {
                 api project(":tools.telegram.webapps.core")
+                api libs.ktgbotapi.webapps
             }
         }
     }
 }
-
