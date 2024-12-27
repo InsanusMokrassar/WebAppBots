@@ -1,0 +1,17 @@
+plugins {
+    id "org.jetbrains.kotlin.multiplatform"
+    id "org.jetbrains.kotlin.plugin.serialization"
+}
+
+apply from: "$mppProjectWithSerialization"
+
+kotlin {
+    sourceSets {
+        commonMain {
+            dependencies {
+                api project(":tools.telegram.webapps.core")
+                api libs.microutils.koin
+            }
+        }
+    }
+}

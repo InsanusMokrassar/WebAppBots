@@ -1,0 +1,19 @@
+plugins {
+    id "org.jetbrains.kotlin.multiplatform"
+    id "org.jetbrains.kotlin.plugin.serialization"
+}
+
+apply from: "$mppProjectWithSerialization"
+
+kotlin {
+    sourceSets {
+        commonMain {
+            dependencies {
+                api libs.ktgbotapi.core
+                api libs.microutils.serialization.mapper
+                api libs.ktor.http
+            }
+        }
+    }
+}
+

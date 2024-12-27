@@ -1,19 +1,12 @@
 [versions]
 
-kotlin = "2.0.21"
+kotlin = "2.1.0"
 kotlin-serialization = "1.7.3"
 
-dokka = "1.9.20"
-
-dexcount = "4.0.0"
-junit_version = "4.12"
-test_ext_junit_version = "1.2.1"
-espresso_core = "3.6.1"
-
-android-gradle-plugin = "8.2.2"
-android-minSdk = "21"
-android-compileSdk = "35"
-android-buildTools = "35.0.0"
+microutils = "0.23.2"
+ktor = "3.0.3"
+ktgbotapi = "23.0.0"
+dokka = "2.0.0"
 
 [libraries]
 
@@ -23,13 +16,16 @@ kotlin-test-common = { module = "org.jetbrains.kotlin:kotlin-test-common", versi
 kotlin-test-annotations-common = { module = "org.jetbrains.kotlin:kotlin-test-annotations-common", version.ref = "kotlin" }
 kotlin-test-junit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlin" }
 kotlin-test-js = { module = "org.jetbrains.kotlin:kotlin-test-js", version.ref = "kotlin" }
-android-test-junit = { module = "androidx.test.ext:junit", version.ref = "test_ext_junit_version" }
-android-test-espresso-core = { module = "androidx.test.espresso:espresso-core", version.ref = "espresso_core" }
+
+ktgbotapi-core = { module = "dev.inmo:tgbotapi.core", version.ref = "ktgbotapi" }
+
+microutils-koin = { module = "dev.inmo:micro_utils.koin", version.ref = "microutils" }
+microutils-serialization-mapper = { module = "dev.inmo:micro_utils.serialization.mapper", version.ref = "microutils" }
+
+ktor-http = { module = "io.ktor:ktor-http", version.ref = "ktor" }
 
 # buildscript classpaths
 
-android-tools-build = { module = "com.android.tools.build:gradle", version.ref = "android-gradle-plugin" }
-android-dexcount = { module = "com.getkeepsafe.dexcount:dexcount-gradle-plugin", version.ref = "dexcount" }
 kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 kotlin-serialization-plugin = { module = "org.jetbrains.kotlin:kotlin-serialization", version.ref = "kotlin" }
 kotlin-dokka-plugin = { module = "org.jetbrains.dokka:dokka-gradle-plugin", version.ref = "dokka" }

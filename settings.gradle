@@ -1,7 +1,10 @@
-rootProject.name = 'project_name'
+rootProject.name = 'tools.telegram.webapps'
 
 String[] includes = [
-    ":lib"
+    ":core",
+    ":koin",
+    ":server",
+    ":webapp",
 ]
 
 
