@@ -1,7 +1,6 @@
 package dev.inmo.tools.telegram.webapps.core.models
 
 import dev.inmo.micro_utils.common.MPPFile
-import dev.inmo.tools.telegram.webapps.core.DefaultClient
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.Serializable
 
@@ -17,6 +16,3 @@ object StatusRequest : BaseRequest<StatusRequest.Status> {
     override val resultSerializer: KSerializer<Status>
         get() = Status.serializer()
 }
-
-suspend fun DefaultClient.status() = request(StatusRequest)
-suspend fun DefaultClient.status(file: MPPFile) = request(StatusRequest, file)
