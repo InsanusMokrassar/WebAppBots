@@ -3,6 +3,8 @@ rootProject.name = 'tools.telegram.webapps'
 String[] includes = [
     ":core",
     ":koin",
+    ":koin:client",
+    ":koin:server",
     ":server",
     ":client",
 ]
