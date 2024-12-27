@@ -10,6 +10,7 @@ kotlin {
         commonMain {
             dependencies {
                 api project(":tools.telegram.webapps.core")
+                api libs.microutils.ktor.server
             }
         }
     }

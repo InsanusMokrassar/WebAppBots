@@ -22,6 +22,7 @@ ktgbotapi-webapps = { module = "dev.inmo:tgbotapi.webapps", version.ref = "ktgbo
 
 microutils-koin = { module = "dev.inmo:micro_utils.koin", version.ref = "microutils" }
 microutils-serialization-mapper = { module = "dev.inmo:micro_utils.serialization.mapper", version.ref = "microutils" }
+microutils-ktor-server = { module = "dev.inmo:micro_utils.ktor.server", version.ref = "microutils" }
 
 ktor-http = { module = "io.ktor:ktor-http", version.ref = "ktor" }
 
