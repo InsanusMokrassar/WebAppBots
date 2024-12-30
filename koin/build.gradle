@@ -4,6 +4,7 @@ plugins {
 }
 
 apply from: "$mppProjectWithSerialization"
+apply from: "$publish"
 
 kotlin {
     sourceSets {

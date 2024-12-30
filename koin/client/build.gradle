@@ -4,6 +4,7 @@ plugins {
 }
 
 apply from: "$mppJsProject"
+apply from: "$publish"
 
 kotlin {
     sourceSets {

@@ -10,7 +10,12 @@ buildscript {
         classpath libs.kotlin.gradle.plugin
         classpath libs.kotlin.serialization.plugin
         classpath libs.kotlin.dokka.plugin
+        classpath libs.buildscript.gh.release
     }
+}
+
+plugins {
+    alias(libs.plugins.versions)
 }
 
 allprojects {
@@ -22,4 +27,5 @@ allprojects {
 }
 
 apply from: "./extensions.gradle"
-// apply from: "./github_release.gradle"
+apply from: "./github_release.gradle"
+apply from: "./versions_plugin_setup.gradle"
