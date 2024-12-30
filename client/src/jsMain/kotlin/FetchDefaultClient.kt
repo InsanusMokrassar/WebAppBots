@@ -9,9 +9,7 @@ import dev.inmo.tools.telegram.webapps.core.CommonWebAppConstants
 import dev.inmo.tools.telegram.webapps.core.models.AuthorizedRequestBody
 import dev.inmo.tools.telegram.webapps.core.models.BaseRequest
 import dev.inmo.tools.telegram.webapps.core.models.HandlingResult
-import io.ktor.client.*
-import io.ktor.client.request.*
-import io.ktor.client.statement.*
+import io.ktor.http.*
 import kotlinx.serialization.json.Json
 
 /**
@@ -19,8 +17,7 @@ import kotlinx.serialization.json.Json
  * to serialized format. Besides, it assumes that you have registered all polymorphic [BaseRequest] inheritors
  * in [json]
  */
-class KtorDefaultClient(
-    private val client: HttpClient,
+class FetchDefaultClient(
     private val json: Json,
     private val initData: String = webApp.initData,
     private val initDataHash: String = webApp.initDataUnsafe.hash
@@ -33,12 +30,12 @@ class KtorDefaultClient(
             )
             val payloadFile = file
             val (body, headers, status) = if (payloadFile == null) {
-                val request = client.post(CommonWebAppConstants.requestAddress) {
-                    setBody(serialized)
-                }
-                Triple(request.bodyAsText(), request.headers, request.status)
+                uniPost(
+                    CommonWebAppConstants.requestAddress,
+                    serialized,
+                )
             } else {
-                client.uniUpload(
+                uniUpload(
                     CommonWebAppConstants.multipartRequestAddress,
                     mapOf(
                         "data" to serialized.either<MPPFile, String>(),
@@ -61,7 +58,7 @@ class KtorDefaultClient(
             }
         }.getOrElse {
             logger.e(it)
-            throw it
+            HandlingResult.Failure<R>(HttpStatusCode.SeeOther, null)
         }
         return result
     }

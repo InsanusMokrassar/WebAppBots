@@ -6,9 +6,7 @@ import dev.inmo.micro_utils.common.EitherSecond
 import dev.inmo.micro_utils.common.MPPFile
 import dev.inmo.micro_utils.coroutines.LinkedSupervisorJob
 import dev.inmo.micro_utils.coroutines.launchSafelyWithoutExceptions
-import io.ktor.client.*
 import io.ktor.client.content.*
-import io.ktor.client.request.*
 import io.ktor.http.*
 import kotlinx.coroutines.*
 import org.w3c.xhr.FormData
@@ -16,7 +14,7 @@ import org.w3c.xhr.TEXT
 import org.w3c.xhr.XMLHttpRequest
 import org.w3c.xhr.XMLHttpRequestResponseType
 
-suspend fun HttpClient.uniUpload(
+suspend fun uniUpload(
     url: String,
     data: Map<String, Either<MPPFile, String>>,
     headers: Headers = Headers.Empty,

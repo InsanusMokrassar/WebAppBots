@@ -7,6 +7,10 @@ String[] includes = [
     ":koin:server",
     ":server",
     ":client",
+
+    ":sample",
+    ":sample:webapp",
+    ":sample:server",
 ]
 
 

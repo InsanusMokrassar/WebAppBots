@@ -1,0 +1,46 @@
+plugins {
+    id "org.jetbrains.kotlin.multiplatform"
+    id "org.jetbrains.kotlin.plugin.serialization"
+}
+
+apply from: "$mppJavaProject"
+
+kotlin {
+    sourceSets {
+        commonMain {
+            dependencies {
+                api libs.microutils.ktor.server
+                api project(":tools.telegram.webapps.sample")
+                api project(":tools.telegram.webapps.server")
+                api project(":tools.telegram.webapps.koin.server")
+            }
+        }
+        jvmMain {
+            dependencies {
+                api libs.ktor.server.engine.netty
+                api libs.ktor.serialization.kotlinx.json
+            }
+        }
+    }
+}
+
+File outputLocalInfoFile = new File(projectDir, "src/jvmMain/kotlin/local.FileInfo.kt")
+String outputLocalInfoFileContent = """
+/**
+ * This file has been generated. Do not edit it. See build.gradle of this module for more info
+ */
+import java.io.File
+
+val staticProductionFolder = File("${new File(rootDir, "sample${File.separator}webapp${File.separator}build${File.separator}dist${File.separator}js${File.separator}productionExecutable".toString()).absolutePath}")
+val staticDevelopmentFolder = File("${new File(rootDir, "sample${File.separator}webapp${File.separator}build${File.separator}dist${File.separator}js${File.separator}developmentExecutable".toString()).absolutePath}")
+"""
+if (outputLocalInfoFile.exists() && outputLocalInfoFile.isFile() && outputLocalInfoFile.getText() == outputLocalInfoFileContent) {
+    /* do nothing */
+} else {
+    outputLocalInfoFile.parentFile.mkdirs()
+    outputLocalInfoFile.delete()
+    println(outputLocalInfoFile.absolutePath)
+    outputLocalInfoFile.createNewFile()
+    outputLocalInfoFile.write(outputLocalInfoFileContent)
+}
+
