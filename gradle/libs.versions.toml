@@ -1,7 +1,7 @@
 [versions]
 
 kotlin = "2.1.10"
-kotlin-serialization = "1.7.3"
+kotlin-serialization = "1.8.0"
 
 microutils = "0.24.0"
 ktor = "3.1.0"
