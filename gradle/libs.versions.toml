@@ -9,7 +9,7 @@ ktgbotapi = "23.2.0"
 dokka = "2.0.0"
 
 gh-release = "2.5.2"
-versions = "0.51.0"
+versions = "0.52.0"
 
 [libraries]
 
