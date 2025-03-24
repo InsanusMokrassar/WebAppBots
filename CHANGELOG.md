@@ -1,5 +1,13 @@
 # WebAppBots
 
+## 0.0.3
+
+* `Versions`:
+  * `Kotlin`: `2.1.20`
+  * `Ktor`: `3.1.1`
+  * `MicroUtils`: `0.25.2`
+  * `ktgbotapi`: `24.0.1`
+
 ## 0.0.2
 
 * `Versions`:
