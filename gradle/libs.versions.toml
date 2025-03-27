@@ -4,7 +4,7 @@ kotlin = "2.1.20"
 kotlin-serialization = "1.8.0"
 
 microutils = "0.25.2"
-ktor = "3.1.1"
+ktor = "3.1.2"
 ktgbotapi = "24.0.1"
 dokka = "2.0.0"
 
