@@ -12,6 +12,7 @@ import dev.inmo.tools.telegram.webapps.core.models.BaseRequest
 import dev.inmo.tools.telegram.webapps.core.models.HandlingResult
 import io.ktor.client.content.ProgressListener
 import io.ktor.http.*
+import kotlinx.serialization.KSerializer
 import kotlinx.serialization.json.Json
 
 /**
@@ -20,16 +21,31 @@ import kotlinx.serialization.json.Json
  * in [json]
  */
 class FetchDefaultClient(
-    private val json: Json,
-    private val initData: String = webApp.initData,
-    private val initDataHash: String = webApp.initDataUnsafe.hash
+    private val dataSerializer: (BaseRequest<*>) -> String,
+    private val dataDeserializer: (String, KSerializer<*>) -> Any?,
 ) : DefaultClient {
+    constructor(
+        json: Json,
+        initData: String = webApp.initData,
+        initDataHash: String = webApp.initDataUnsafe.hash
+    ) : this(
+        {
+            json.encodeToString(
+                AuthorizedRequestBody.serializer(),
+                AuthorizedRequestBody(initData, initDataHash, it)
+            )
+        },
+        { body, serializer ->
+            json.decodeFromString(
+                serializer,
+                body
+            )
+        }
+    )
+
     private suspend fun <R : Any> internalRequest(payload: BaseRequest<R>, file: MPPFile?, onUpload: RequestProgressListener? = null): HandlingResult<R> {
         val result = runCatching {
-            val serialized = json.encodeToString(
-                AuthorizedRequestBody.serializer(),
-                AuthorizedRequestBody(initData, initDataHash, payload)
-            )
+            val serialized = dataSerializer(payload)
             val payloadFile = file
             val (body, headers, status) = if (payloadFile == null) {
                 uniPost(
@@ -53,9 +69,9 @@ class FetchDefaultClient(
             }
             val isSuccess = headers["internal_status_type"] == "success"
             val responseData = if (body.isNotBlank()) {
-                json.decodeFromString(
-                    payload.resultSerializer,
-                    body
+                dataDeserializer(
+                    body,
+                    payload.resultSerializer
                 )
             } else {
                 null
