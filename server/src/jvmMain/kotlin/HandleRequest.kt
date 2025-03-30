@@ -6,6 +6,7 @@ import dev.inmo.tools.telegram.webapps.core.models.AuthorizedRequestBody
 import dev.inmo.tools.telegram.webapps.core.models.HandlingResult
 import io.ktor.http.*
 import io.ktor.server.response.*
+import io.ktor.server.response.respond
 import io.ktor.server.routing.*
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.json.Json

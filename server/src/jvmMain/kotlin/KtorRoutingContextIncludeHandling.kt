@@ -21,6 +21,7 @@ fun Route.includeTelegramWebAppsClientRequestHandling(
     json: Json,
     telegramBotApiUrlsKeeper: TelegramAPIUrlsKeeper,
     requestsHandlers: List<RequestHandler>,
+    maxFilesSizeBytes: Long? = null
 ) {
     post(CommonWebAppConstants.requestAddress) {
         runCatching {
@@ -36,9 +37,10 @@ fun Route.includeTelegramWebAppsClientRequestHandling(
             throw it
         }
     }
+    val formFieldLimit = maxFilesSizeBytes ?: Long.MAX_VALUE
     post(CommonWebAppConstants.multipartRequestAddress) {
         runCatching {
-            val multipart = call.receiveMultipart()
+            val multipart = call.receiveMultipart(formFieldLimit = formFieldLimit)
 
             var data: AuthorizedRequestBody? = null
             var file: MPPFile? = null

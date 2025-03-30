@@ -5,10 +5,12 @@ import dev.inmo.kslog.common.logger
 import dev.inmo.micro_utils.common.MPPFile
 import dev.inmo.micro_utils.common.either
 import dev.inmo.tgbotapi.webapps.webApp
+import dev.inmo.tools.telegram.webapps.client.DefaultClient.RequestProgressListener
 import dev.inmo.tools.telegram.webapps.core.CommonWebAppConstants
 import dev.inmo.tools.telegram.webapps.core.models.AuthorizedRequestBody
 import dev.inmo.tools.telegram.webapps.core.models.BaseRequest
 import dev.inmo.tools.telegram.webapps.core.models.HandlingResult
+import io.ktor.client.content.ProgressListener
 import io.ktor.http.*
 import kotlinx.serialization.json.Json
 
@@ -22,7 +24,7 @@ class FetchDefaultClient(
     private val initData: String = webApp.initData,
     private val initDataHash: String = webApp.initDataUnsafe.hash
 ) : DefaultClient {
-    private suspend fun <R : Any> internalRequest(payload: BaseRequest<R>, file: MPPFile?): HandlingResult<R> {
+    private suspend fun <R : Any> internalRequest(payload: BaseRequest<R>, file: MPPFile?, onUpload: RequestProgressListener? = null): HandlingResult<R> {
         val result = runCatching {
             val serialized = json.encodeToString(
                 AuthorizedRequestBody.serializer(),
@@ -33,6 +35,9 @@ class FetchDefaultClient(
                 uniPost(
                     CommonWebAppConstants.requestAddress,
                     serialized,
+                    onUpload = onUpload  ?.let {
+                        ProgressListener { bytesSentTotal, contentLength -> it.onProgress(bytesSentTotal, contentLength)}
+                    },
                 )
             } else {
                 uniUpload(
@@ -41,6 +46,9 @@ class FetchDefaultClient(
                         "data" to serialized.either<MPPFile, String>(),
                         "file" to payloadFile.either<MPPFile, String>()
                     ),
+                    onUpload = onUpload  ?.let {
+                        ProgressListener { bytesSentTotal, contentLength -> it.onProgress(bytesSentTotal, contentLength)}
+                    },
                 )
             }
             val isSuccess = headers["internal_status_type"] == "success"
@@ -63,11 +71,11 @@ class FetchDefaultClient(
         return result
     }
 
-    override suspend fun <R : Any> request(payload: BaseRequest<R>): HandlingResult<R> {
-        return internalRequest(payload, null)
+    override suspend fun <R : Any> request(payload: BaseRequest<R>, onUpload: RequestProgressListener?): HandlingResult<R> {
+        return internalRequest(payload, null, onUpload)
     }
 
-    override suspend fun <R : Any> request(payload: BaseRequest<R>, file: MPPFile): HandlingResult<R> {
-        return internalRequest(payload, file)
+    override suspend fun <R : Any> request(payload: BaseRequest<R>, file: MPPFile, onUpload: RequestProgressListener?): HandlingResult<R> {
+        return internalRequest(payload, file, onUpload)
     }
 }

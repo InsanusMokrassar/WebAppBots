@@ -2,6 +2,15 @@
 
 ## 0.0.4
 
+* `Versions`:
+  * `Ktor`: `3.1.2`
+  * `MicroUtils`: `0.25.3`
+  * `ktgbotapi`: `24.0.2`
+* `Client`:
+  * Add opportunity to follow request uploading progress
+* `Server`:
+  * Fix issue with default limit for files uploading in Ktor
+
 ## 0.0.3
 
 * `Versions`:
