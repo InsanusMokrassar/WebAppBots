@@ -6,7 +6,7 @@ kotlin-serialization = "1.8.0"
 microutils = "0.25.3"
 ktor = "3.1.2"
 ktgbotapi = "24.0.2"
-dokka = "2.0.0"
+dokka = "2.2.0"
 
 gh-release = "2.5.2"
 versions = "0.51.0"
